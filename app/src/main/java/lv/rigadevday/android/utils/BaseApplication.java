@@ -5,10 +5,13 @@ import android.app.Application;
 import com.bettervectordrawable.Convention;
 import com.bettervectordrawable.VectorDrawableCompat;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import java.util.Collections;
 import java.util.List;
 
 import dagger.ObjectGraph;
+import lv.rigadevday.android.BuildConfig;
 import lv.rigadevday.android.R;
 import lv.rigadevday.android.dagger.DaggerModule;
 import lv.rigadevday.android.dagger.MainModule;
@@ -24,6 +27,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (!BuildConfig.DEBUG)
+            Fabric.with(this, new Crashlytics());
         initVectors();
 
         DaggerModule[] modules = getModules();

@@ -37,6 +37,9 @@
             android:label="@string/action_licences"
             android:screenOrientation="portrait" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="bc5647f1533e41683a0aeb83d8715ac7c32b9090" />
     </application>
 
 </manifest>

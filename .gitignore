@@ -30,3 +30,4 @@ gradle.properties
 
 # Misc
 .DS_Store
+app/fabric.properties

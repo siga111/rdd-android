@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.21.4'
     }
 }
 apply plugin: 'com.android.application'
@@ -24,7 +24,7 @@ android {
     buildToolsVersion '23.0.2'
 
     defaultConfig {
-        applicationId "lv.rigadevday.android"
+        applicationId "lv.luhmirin.rigadevday2016"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 4

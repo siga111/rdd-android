@@ -47,9 +47,7 @@ fun View.hide() {
     this.visibility = View.GONE
 }
 
-fun View.showMessage(@StringRes stringId: Int) {
-    Toast.makeText(this.context, stringId, Toast.LENGTH_SHORT).show()
-}
+fun View.showMessage(@StringRes stringId: Int) = this.context.showMessage(stringId)
 
 fun Context.showMessage(@StringRes stringId: Int) {
     Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show()

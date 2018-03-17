@@ -24,7 +24,7 @@ class PartnersFragment : BaseFragment() {
     }
 
     private val listAdapter = PartnersAdapter {
-        context.openWeb(it)
+        context?.openWeb(it)
     }
 
     override fun viewReady(view: View) {

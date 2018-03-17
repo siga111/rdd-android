@@ -37,27 +37,34 @@ class DayScheduleFragment : BaseFragment(), DayScheduleContract {
     }
 
     override fun viewReady(view: View) {
-        timeslotData = arguments.getBundle(EXTRA_SESSION_DATA).toIntentData()
+       arguments
+            ?.getBundle(EXTRA_SESSION_DATA)
+            ?.toIntentData()
+            ?.let {
+                timeslotData = it
 
-        with(view.schedule_recycler) {
-            layoutManager = StickyHeaderLayoutManager()
-            adapter = listAdapter
-        }
+                with(view.schedule_recycler) {
+                    layoutManager = StickyHeaderLayoutManager()
+                    adapter = listAdapter
+                }
 
-        dataFetchSubscription = repo.scheduleDayTimeslots(timeslotData.dateCode)
-            .toList()
-            .subscribe(
-                { listAdapter.data = it },
-                { view.showMessage(R.string.error_message) }
-            )
+                dataFetchSubscription = repo.scheduleDayTimeslots(timeslotData.dateCode)
+                    .toList()
+                    .subscribe(
+                        { listAdapter.data = it },
+                        { view.showMessage(R.string.error_message) }
+                    )
+            }
+
+
     }
 
     override fun openSession(sessionId: Int) {
-        context.openSessionDetailsActivity(sessionId)
+        context?.openSessionDetailsActivity(sessionId)
     }
 
     override fun openSpeaker(speakerId: Int) {
-        context.openSpeakerActivity(speakerId)
+        context?.openSpeakerActivity(speakerId)
     }
 
     override fun onResume() {

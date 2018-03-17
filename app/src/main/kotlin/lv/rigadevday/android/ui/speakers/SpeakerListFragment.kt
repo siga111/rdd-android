@@ -14,7 +14,7 @@ class SpeakerListFragment : BaseFragment() {
     override val layoutId = R.layout.fragment_list
 
     private val listAdapter: SpeakersAdapter = SpeakersAdapter {
-        context.openSpeakerActivity(it)
+        context?.openSpeakerActivity(it)
     }
 
     override fun inject() {

@@ -34,7 +34,7 @@ fun ImageView.loadSquareAvatar(url: String): Target<Drawable> = getFetcherInstan
 fun ImageView.loadLogo(url: String, onDone: () -> Unit): Target<Drawable> = getFetcherInstance(url)
     .apply(defaultOptions.fitCenter())
     .into(object : ViewTarget<ImageView, Drawable>(this) {
-        override fun onResourceReady(resource: Drawable?, transition: Transition<in Drawable>?) {
+        override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
             view.setImageDrawable(resource)
             onDone()
         }

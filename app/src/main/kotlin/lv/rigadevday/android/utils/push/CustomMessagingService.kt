@@ -25,8 +25,8 @@ class CustomMessagingService : FirebaseMessagingService() {
         notifications.notify(
             Random().nextInt(),
             NotificationCompat.Builder(this, this.packageName)
-                .setContentTitle(remoteMessage.notification.title)
-                .setContentText(remoteMessage.notification.body)
+                .setContentTitle(remoteMessage.notification?.title)
+                .setContentText(remoteMessage.notification?.body)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setColorized(false)
                 .setAutoCancel(true)

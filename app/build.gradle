@@ -12,7 +12,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "lv.gdg.devfest2017"
+        applicationId "lv.rdd2018"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 400

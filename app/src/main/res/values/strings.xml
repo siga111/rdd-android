@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DevFest Baltics</string>
-    <string name="hashtag">#DevFestBaltics</string>
+    <string name="app_name">Riga Dev Days 2018</string>
+    <string name="hashtag">#RigaDevDays</string>
 
     <string name="action_twitter">Tweet at us</string>
     <string name="action_login">Log In</string>
@@ -45,7 +45,7 @@
     <string name="auth_logout_happened">Logged out</string>
 
     <string name="error_message">Oops, something went wrong</string>
-    <string name="error_connection_message">Please connect to network to download data</string>
+    <string name="error_connection_message">Cannot update local cache</string>
 
     <string name="data_updated">Just got latest updates!</string>
 

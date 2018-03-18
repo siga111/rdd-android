@@ -25,8 +25,6 @@ class RateActivity : BaseActivity() {
             })
             .subscribe(
                 { session ->
-                    rate_background.setOnClickListener { finish() }
-
                     rate_session_title.text = session.title
 
                     session.speakerObjects.first().let {

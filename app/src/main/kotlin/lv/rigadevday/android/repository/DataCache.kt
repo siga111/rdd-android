@@ -25,16 +25,15 @@ class DataCache @Inject constructor() {
         venues = newData.venues.filterNotNull()
 
         speakers = newData.speakers.filterNotNull().associate { it.id to it }
-        sessions = newData.sessions.filterNot { it.key.isNullOrEmpty() }.mapKeys { (key, _) -> key.toInt() }
-        schedule = newData.schedule.filterNot { it.key.isNullOrEmpty() }
 
-        sessions.forEach { (_, session) ->
-            // enrich sessions with speakers
-            session.speakerObjects = session.speakers
-                .map { speakers.getValue(it) }
-                .toMutableList()
-        }
+        sessions = newData.sessions.filterNot { it.key.isEmpty() }.map { (id, session) ->
+            session.also {
+                it.id = id.toInt()
+                it.speakerObjects = session.speakers.map { speakers.getValue(it) }.toList()
+            }
+        }.associateBy { it.id }
 
+        schedule = newData.schedule.filterNot { it.key.isEmpty() }
         schedule.forEach { (date, day) ->
             day.timeslots.forEach { timeslot ->
                 // enrich schedule with sessions

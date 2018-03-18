@@ -5,13 +5,12 @@ import lv.rigadevday.android.repository.model.speakers.Speaker
 
 @IgnoreExtraProperties
 data class Session(
-    val id: Int = -1,
-
     val title: String = "",
     val description: String = "",
     val speakers: List<Int> = emptyList(),
     val tags: List<String> = emptyList()
 ) {
+    var id: Int = -1
     var speakerObjects: List<Speaker> = listOf()
     var room: String = ""
 

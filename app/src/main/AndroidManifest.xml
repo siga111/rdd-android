@@ -46,7 +46,6 @@
 
         <activity
             android:name=".ui.schedule.rate.RateActivity"
-            android:theme="@style/ThemeTranslucent"
             />
 
         <activity

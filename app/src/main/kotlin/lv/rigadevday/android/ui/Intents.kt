@@ -9,7 +9,6 @@ import lv.rigadevday.android.ui.schedule.TimeslotData
 import lv.rigadevday.android.ui.schedule.details.SessionDetailsActivity
 import lv.rigadevday.android.ui.schedule.rate.RateActivity
 import lv.rigadevday.android.ui.schedule.sessions.SessionsActivity
-import lv.rigadevday.android.ui.schedule.toBundle
 import lv.rigadevday.android.ui.speakers.SpeakerDialogActivity
 import lv.rigadevday.android.utils.toExtraKey
 import lv.rigadevday.android.utils.urlEncoded
@@ -30,7 +29,7 @@ fun Context.openSpeakerActivity(id: Int) {
 
 fun Context.openSessionsActivity(data: TimeslotData? = null) {
     Intent(this, SessionsActivity::class.java).apply {
-        data?.run { putExtra(EXTRA_SESSION_DATA, toBundle()) }
+        data?.let { putExtra(EXTRA_SESSION_DATA, it) }
     }.start(from = this)
 }
 
@@ -39,8 +38,8 @@ fun Context.openSessionDetailsActivity(sessionId: Int) {
 }
 
 private fun Context.sessionDetailsIntent(sessionId: Int)
-    = Intent(this, SessionDetailsActivity::class.java)
-    .apply { putExtra(EXTRA_SESSION_ID, sessionId) }
+    = Intent(this, SessionDetailsActivity::class.java).apply {
+    putExtra(EXTRA_SESSION_ID, sessionId) }
 
 fun Context.openRateSessionActivity(sessionId: Int) {
     Intent(this, RateActivity::class.java).apply {

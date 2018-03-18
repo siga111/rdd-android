@@ -48,6 +48,10 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 repositories {
     jcenter()
     google()
@@ -74,6 +78,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-auth:${versions.firebase}"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+
+    implementation 'androidx.core:core-ktx:0.2'
 
     // dagger 2 stuff
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"

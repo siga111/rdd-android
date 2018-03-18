@@ -1,7 +1,7 @@
 package lv.rigadevday.android.ui.schedule.day
 
-import android.os.Bundle
 import android.view.View
+import androidx.os.bundleOf
 import kotlinx.android.synthetic.main.fragment_day_schedule.view.*
 import lv.rigadevday.android.R
 import lv.rigadevday.android.ui.EXTRA_SESSION_DATA
@@ -10,8 +10,6 @@ import lv.rigadevday.android.ui.openSessionDetailsActivity
 import lv.rigadevday.android.ui.openSpeakerActivity
 import lv.rigadevday.android.ui.schedule.TimeslotData
 import lv.rigadevday.android.ui.schedule.day.adapter.ScheduleAdapter
-import lv.rigadevday.android.ui.schedule.toBundle
-import lv.rigadevday.android.ui.schedule.toIntentData
 import lv.rigadevday.android.utils.BaseApp
 import lv.rigadevday.android.utils.showMessage
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager
@@ -20,9 +18,7 @@ class DayScheduleFragment : BaseFragment(), DayScheduleContract {
 
     companion object {
         fun newInstance(dateCode: String, readableDate: String) = DayScheduleFragment().apply {
-            arguments = Bundle().apply {
-                putBundle(EXTRA_SESSION_DATA, TimeslotData(readableDate, dateCode).toBundle())
-            }
+            arguments = bundleOf(EXTRA_SESSION_DATA to TimeslotData(readableDate, dateCode))
         }
     }
 
@@ -37,9 +33,7 @@ class DayScheduleFragment : BaseFragment(), DayScheduleContract {
     }
 
     override fun viewReady(view: View) {
-       arguments
-            ?.getBundle(EXTRA_SESSION_DATA)
-            ?.toIntentData()
+        arguments?.getParcelable<TimeslotData>(EXTRA_SESSION_DATA)
             ?.let {
                 timeslotData = it
 
@@ -55,8 +49,6 @@ class DayScheduleFragment : BaseFragment(), DayScheduleContract {
                         { view.showMessage(R.string.error_message) }
                     )
             }
-
-
     }
 
     override fun openSession(sessionId: Int) {

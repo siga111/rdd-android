@@ -17,7 +17,7 @@ fun String.toExtraKey() = "lv.devfest.android.extra.$this"
 
 fun String.toImageUrl() =
     if (this.startsWith("http")) this
-    else "http://devfest.gdg.lv${this.replace("..", "")}"
+    else "http://rigadevdays.lv${this.replace("..", "")}"
 
 @Suppress("DEPRECATION")
 fun String.fromHtml(): Spanned = this

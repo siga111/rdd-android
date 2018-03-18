@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_speaker.view.*
 import lv.rigadevday.android.R
 import lv.rigadevday.android.repository.model.speakers.Speaker
-import lv.rigadevday.android.utils.hide
 import lv.rigadevday.android.utils.inflate
 import lv.rigadevday.android.utils.loadSquareAvatar
-import lv.rigadevday.android.utils.show
 
 class SpeakersAdapter(private val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<SpeakerViewHolder>() {
 
@@ -39,14 +37,6 @@ class SpeakerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         speakers_item_company.text = speaker.company
 
         speakers_item_image.loadSquareAvatar(speaker.photoUrl)
-
-        speakers_item_bagde.apply {
-            if (speaker.badges.isEmpty()) hide()
-            else {
-                show()
-                text = speaker.badges[0].name
-            }
-        }
     }
 
 }

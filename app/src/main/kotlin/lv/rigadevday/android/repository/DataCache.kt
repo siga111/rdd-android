@@ -23,11 +23,10 @@ class DataCache @Inject constructor() {
     fun update(newData: Root): DataCache {
         partners = newData.partners.filterNotNull()
         venues = newData.venues.filterNotNull()
-        resources = newData.resources.filterNot { it.key.isNullOrEmpty() || it.value.isNullOrEmpty() }
 
         speakers = newData.speakers.filterNotNull().associate { it.id to it }
         sessions = newData.sessions.filterNot { it.key.isNullOrEmpty() }.mapKeys { (key, _) -> key.toInt() }
-        schedule = newData.schedule.filterNotNull().associate { it.date to it }
+        schedule = newData.schedule.filterNot { it.key.isNullOrEmpty() }
 
         sessions.forEach { (_, session) ->
             // enrich sessions with speakers
@@ -49,9 +48,6 @@ class DataCache @Inject constructor() {
                 }
             }
         }
-
-        // enrich partner groups with actual titles
-        partners.forEach { it.actualTitle = resources[it.title] ?: it.title }
         return this
     }
 

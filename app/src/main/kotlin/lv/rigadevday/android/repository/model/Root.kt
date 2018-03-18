@@ -14,7 +14,6 @@ data class Root(
     val venues: List<Venue?> = emptyList(),
     val speakers: List<Speaker?> = emptyList(),
 
-    val resources: Map<String, String> = emptyMap(),
     val sessions: Map<String, Session> = emptyMap(),
-    val schedule: List<Schedule?> = emptyList()
+    val schedule: Map<String, Schedule> = emptyMap()
 )

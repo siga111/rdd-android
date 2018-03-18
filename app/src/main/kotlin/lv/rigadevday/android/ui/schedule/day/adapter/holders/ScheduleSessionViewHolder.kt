@@ -13,7 +13,6 @@ class ScheduleSessionViewHolder(itemView: View) : SectioningAdapter.ItemViewHold
 
     fun bind(item: Session, contract: DayScheduleContract, showDivider: Boolean) = with(itemView) {
         schedule_item_title.text = item.title
-        schedule_item_room.text = item.location
 
         if (showDivider) schedule_item_divider.show() else schedule_item_divider.hide()
 

@@ -9,10 +9,10 @@
         android:checked="true"
         android:icon="@drawable/vector_tab_speakers"
         android:title="@string/tab_speakers"/>
-    <item
-        android:id="@+id/action_tab_venues"
-        android:icon="@drawable/vector_tab_venues"
-        android:title="@string/tab_venues"/>
+    <!--<item-->
+        <!--android:id="@+id/action_tab_venues"-->
+        <!--android:icon="@drawable/vector_tab_venues"-->
+        <!--android:title="@string/tab_venues"/>-->
     <item
         android:id="@+id/action_tab_partners"
         android:icon="@drawable/vector_tab_partners"

@@ -9,7 +9,6 @@ class ScheduleNonSessionViewHolder(itemView: View) : SectioningAdapter.ItemViewH
 
     fun bind(item: Session) = with(itemView) {
         schedule_item_non_session_title.text = item.title
-        schedule_item_non_session_subtitle.text = item.location
     }
 
 }

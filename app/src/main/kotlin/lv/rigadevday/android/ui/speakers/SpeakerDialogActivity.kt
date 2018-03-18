@@ -9,7 +9,12 @@ import lv.rigadevday.android.repository.model.speakers.Speaker
 import lv.rigadevday.android.ui.EXTRA_SPEAKER_ID
 import lv.rigadevday.android.ui.base.BaseActivity
 import lv.rigadevday.android.ui.openWeb
-import lv.rigadevday.android.utils.*
+import lv.rigadevday.android.utils.BaseApp
+import lv.rigadevday.android.utils.fromHtml
+import lv.rigadevday.android.utils.hide
+import lv.rigadevday.android.utils.loadCircleAvatar
+import lv.rigadevday.android.utils.show
+import lv.rigadevday.android.utils.showMessage
 
 class SpeakerDialogActivity : BaseActivity() {
 
@@ -41,7 +46,7 @@ class SpeakerDialogActivity : BaseActivity() {
         speaker_company.text = getString(R.string.speaker_company, speaker.company)
 
         speaker_bio.movementMethod = LinkMovementMethod.getInstance()
-        speaker_bio.text = speaker.shortBio.fromHtml()
+        speaker_bio.text = speaker.bio.fromHtml()
 
         if (speaker.socials.isEmpty()) {
             speaker_social_icons.hide()

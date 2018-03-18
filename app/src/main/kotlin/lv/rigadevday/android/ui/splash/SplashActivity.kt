@@ -38,6 +38,7 @@ class SplashActivity : AppCompatActivity() {
                         .also { finish() }
                 },
                 {
+                    it.printStackTrace()
                     showMessage(R.string.error_connection_message)
                     exitApp()
                 }

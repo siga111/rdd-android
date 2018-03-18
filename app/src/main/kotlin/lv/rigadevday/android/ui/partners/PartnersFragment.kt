@@ -39,7 +39,7 @@ class PartnersFragment : BaseFragment() {
 
         dataFetchSubscription = repo.partners()
             .flatMap {
-                PartnerTitle(it.actualTitle)
+                PartnerTitle(it.title)
                     .asFlowable<PartnersItem>()
                     .concatWith(it.logos.map(::PartnerLogo).asFlowable())
             }

@@ -7,15 +7,10 @@ import lv.rigadevday.android.repository.model.speakers.Speaker
 data class Session(
     val id: Int = -1,
 
-    val auditorium: String = "",
-
     val title: String = "",
     val description: String = "",
     val speakers: List<Int> = emptyList(),
-    val tags: List<String> = emptyList(),
-
-    val image: String = "",
-    val complexity: String = ""
+    val tags: List<String> = emptyList()
 ) {
     var speakerObjects: List<Speaker> = listOf()
     var room: String = ""
@@ -24,10 +19,6 @@ data class Session(
     var date: String = ""
 
     var rating: Rating = Rating()
-
-    val complexityAndTags: String get() = "$complexity / ${tags.joinToString()}"
-
-    val location: String get() = auditorium.takeIf(String::isNotEmpty) ?: room
 
     val mainSpeaker get() = speakerObjects.firstOrNull()
 

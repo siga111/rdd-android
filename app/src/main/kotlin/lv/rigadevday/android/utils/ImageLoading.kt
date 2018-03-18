@@ -52,6 +52,6 @@ fun ImageView.loadLogo(url: String, onDone: () -> Unit): Target<Drawable> = getF
     })
 
 fun ImageView.loadVenueImage(url: String): Target<Drawable> = getFetcherInstance()
-    .load(url.toImageUrl())
+    .load(storageRef.child(url))
     .apply(defaultOptions.centerCrop())
     .into(this)

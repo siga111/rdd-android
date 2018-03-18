@@ -68,6 +68,8 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging:${versions.firebase}"
     implementation "com.google.firebase:firebase-auth:${versions.firebase}"
     implementation "com.google.firebase:firebase-config:${versions.firebase}"
+    implementation "com.google.firebase:firebase-storage:${versions.firebase}"
+    implementation 'com.firebaseui:firebase-ui-storage:3.2.2'
 
     implementation "com.google.android.gms:play-services-auth:${versions.firebase}"
 
@@ -83,6 +85,7 @@ dependencies {
     implementation 'com.github.frangsierra:rx2firebase:1.4.0'
 
     implementation 'com.github.bumptech.glide:glide:4.6.1'
+    kapt 'com.github.bumptech.glide:compiler:4.6.1'
 
     implementation 'org.zakariya.stickyheaders:stickyheaders:0.7.6'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'

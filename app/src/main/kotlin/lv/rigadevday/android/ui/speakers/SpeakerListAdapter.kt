@@ -17,8 +17,7 @@ class SpeakersAdapter(private val onItemClick: (Int) -> Unit) : RecyclerView.Ada
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-        = SpeakerViewHolder(parent.inflate(R.layout.item_speaker))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SpeakerViewHolder(parent.inflate(R.layout.item_speaker))
 
     override fun onBindViewHolder(holder: SpeakerViewHolder, position: Int) {
         holder.bind(data[position], onItemClick)
@@ -36,6 +35,7 @@ class SpeakerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         speakers_item_name.text = speaker.name
         speakers_item_company.text = speaker.company
 
+        speakers_item_image.setImageDrawable(null)
         speakers_item_image.loadSquareAvatar(speaker.photoUrl)
     }
 

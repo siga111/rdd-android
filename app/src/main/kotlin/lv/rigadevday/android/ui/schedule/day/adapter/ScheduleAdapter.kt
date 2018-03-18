@@ -1,6 +1,10 @@
 package lv.rigadevday.android.ui.schedule.day.adapter
 
+import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import lv.rigadevday.android.R
 import lv.rigadevday.android.repository.model.schedule.Timeslot
 import lv.rigadevday.android.ui.schedule.day.DayScheduleContract
@@ -55,6 +59,11 @@ class ScheduleAdapter(private val contract: DayScheduleContract) : SectioningAda
         viewHolder.let { it as ScheduleHeaderViewHolder }.bind(data[sectionIndex])
     }
 
+    override fun onCreateGhostHeaderViewHolder(parent: ViewGroup): SectioningAdapter.GhostHeaderViewHolder {
+        val ghostView = View(parent.context)
+        ghostView.layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        return SectioningAdapter.GhostHeaderViewHolder(ghostView)
+    }
     private fun showDivider(sectionIndex: Int, itemIndex: Int): Boolean =
         data[sectionIndex].sessionObjects.lastIndex != itemIndex
 }

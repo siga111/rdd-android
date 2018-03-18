@@ -1,6 +1,7 @@
 package lv.rigadevday.android.ui.base
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.annotation.StringRes
@@ -39,6 +40,7 @@ abstract class BaseActivity : AppCompatActivity(), LoginContract {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         inject()
 
         setContentView(layoutId)

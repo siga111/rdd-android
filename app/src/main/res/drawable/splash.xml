@@ -11,7 +11,7 @@
         android:bottom="120dp">
         <bitmap
             android:gravity="center"
-            android:src="@drawable/logo_combined"/>
+            android:src="@drawable/logo_splash"/>
     </item>
 
 </layer-list>

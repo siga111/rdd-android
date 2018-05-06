@@ -47,10 +47,10 @@ class PartnersAdapter(private val openOnClick: (String) -> Unit) : RecyclerView.
 
     private class LogoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(logo: Logo, openOnClick: (String) -> Unit) = with(itemView) {
-            partners_logo_item_image.setImageDrawable(null)
-            partners_logo_item_image.loadLogo(logo.logoUrl) { partners_logo_item_name.hide() }
             partners_logo_item_name.show()
             partners_logo_item_name.text = logo.name
+            partners_logo_item_image.setImageDrawable(null)
+            partners_logo_item_image.loadLogo(logo.logoUrl) { partners_logo_item_name.hide() }
             setOnClickListener { openOnClick(logo.url) }
         }
     }

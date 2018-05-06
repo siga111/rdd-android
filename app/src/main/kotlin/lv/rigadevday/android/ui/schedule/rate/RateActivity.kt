@@ -41,7 +41,8 @@ class RateActivity : BaseActivity() {
                         repo.saveRating(sessionId, Rating(
                             comment = rate_session_comment_input.text.trim().toString(),
                             qualityOfContent = rate_session_content_stars.progress,
-                            speakerPerformance = rate_session_speaker_stars.progress
+                            speakerPerformance = rate_session_speaker_stars.progress,
+                            timestamp = System.currentTimeMillis().rem(1000L)
                         ))
                         finish()
                     }

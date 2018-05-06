@@ -6,5 +6,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class Rating(
     val comment: String = "",
     val qualityOfContent: Int = 0,
-    val speakerPerformance: Int = 0
+    val speakerPerformance: Int = 0,
+    val timestamp: Long = 0
 )

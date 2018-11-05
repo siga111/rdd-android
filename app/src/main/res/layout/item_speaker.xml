@@ -38,20 +38,6 @@
             tools:text="Antonio Banderas"
             />
 
-        <TextView
-            android:id="@+id/speakers_item_bagde"
-            style="@style/Wrap"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:background="@color/speakers_item_badge"
-            android:padding="@dimen/half_margin"
-            android:textColor="@color/text_light_primary"
-            android:textSize="@dimen/text_size_caption"
-            android:visibility="gone"
-            tools:text="Java Champion"
-            tools:visibility="visible"
-            />
-
     </RelativeLayout>
 
 </lv.rigadevday.android.utils.view.SquareFrameLayout>

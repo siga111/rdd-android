@@ -45,7 +45,7 @@ class SpeakerDialogActivity : BaseActivity() {
 
         if (speaker.socials.isEmpty()) {
             speaker_social_icons.hide()
-        } else speaker.socials.forEach { social ->
+        } else speaker.socials.filterNotNull().forEach { social ->
             when (social.name.toLowerCase()) {
                 "website" -> showSocialIcon(speaker_social_blog, social)
                 "twitter" -> showSocialIcon(speaker_social_twitter, social)

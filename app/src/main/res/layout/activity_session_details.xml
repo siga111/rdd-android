@@ -47,12 +47,12 @@
                 android:focusable="true"/>
 
             <TextView
-                android:id="@+id/session_details_tags"
+                android:id="@+id/session_details_room"
                 style="@style/Sessions.Text"
                 android:layout_marginEnd="@dimen/session_details_header_padding"
                 android:textColor="@color/text_light_secondary"
                 android:textSize="@dimen/text_size_caption"
-                tools:text="All / Android, IoT"
+                tools:text="Room 1"
                 />
 
         </LinearLayout>

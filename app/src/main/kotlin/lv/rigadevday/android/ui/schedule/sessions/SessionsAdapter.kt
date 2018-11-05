@@ -34,7 +34,7 @@ class SessionsHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(session: Session, contract: SessionContract, showDivider: Boolean) {
         itemView.run {
             session_item_title.text = session.title
-            session_item_tags.text = session.complexityAndTags
+            session_item_room.text = session.room
 
             if (showDivider) session_item_divider.show() else session_item_divider.hide()
 

@@ -17,7 +17,5 @@ data class Speaker(
     var company: String = "",
     var country: String = "",
 
-    var badges: List<Badge> = emptyList(),
-    var socials: List<SocialAccount> = emptyList(),
-    var tags: List<String> = emptyList()
+    var socials: List<SocialAccount?> = emptyList()
 )

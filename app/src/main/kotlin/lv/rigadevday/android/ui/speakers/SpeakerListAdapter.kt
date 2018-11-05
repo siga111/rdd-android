@@ -39,14 +39,6 @@ class SpeakerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         speakers_item_company.text = speaker.company
 
         speakers_item_image.loadSquareAvatar(speaker.photoUrl)
-
-        speakers_item_bagde.apply {
-            if (speaker.badges.isEmpty()) hide()
-            else {
-                show()
-                text = speaker.badges[0].name
-            }
-        }
     }
 
 }

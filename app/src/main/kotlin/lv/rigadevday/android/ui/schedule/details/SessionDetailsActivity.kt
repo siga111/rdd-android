@@ -52,7 +52,7 @@ class SessionDetailsActivity : BaseActivity() {
                     session_details_speaker.text = speaker.name
                     session_details_speaker.setOnClickListener { it.context.openSpeakerActivity(speaker.id) }
 
-                    session_details_tags.text = session.complexityAndTags
+                    session_details_room.text = session.room
                     session_details_description.movementMethod = LinkMovementMethod.getInstance()
                     session_details_description.text = session.description.fromHtml()
 

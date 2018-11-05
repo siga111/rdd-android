@@ -47,7 +47,7 @@
         />
 
     <TextView
-        android:id="@+id/session_item_tags"
+        android:id="@+id/session_item_room"
         style="@style/Sessions.Text"
         android:layout_below="@id/session_item_speaker"
         android:layout_marginBottom="@dimen/session_card_padding"
@@ -56,7 +56,7 @@
         android:layout_toStartOf="@id/session_item_photo"
         android:textColor="@color/text_dark_secondary"
         android:textSize="@dimen/text_size_caption"
-        tools:text="Intermediate / Java, Iot, Android"
+        tools:text="Room 1"
         />
 
     <View

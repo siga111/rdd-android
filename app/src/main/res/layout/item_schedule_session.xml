@@ -59,15 +59,5 @@
         tools:text="John Doe"
         />
 
-    <View
-        android:id="@+id/schedule_item_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/schedule_card_padding"
-        android:layout_marginStart="@dimen/schedule_card_padding"
-        android:background="@color/divider_dark"
-        />
-
 </RelativeLayout>
 

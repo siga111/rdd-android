@@ -14,7 +14,7 @@ class SpeakerListFragment : BaseFragment() {
     override val layoutId = R.layout.fragment_list
 
     private val listAdapter: SpeakersAdapter = SpeakersAdapter {
-        context.openSpeakerActivity(it)
+        requireContext().openSpeakerActivity(it)
     }
 
     override fun inject() {
@@ -29,7 +29,7 @@ class SpeakerListFragment : BaseFragment() {
             adapter = listAdapter
         }
 
-        repo.speakers().toList().subscribe(
+       dataFetchSubscription = repo.speakers().toList().subscribe(
             { list -> listAdapter.data = list },
             { view.showMessage(R.string.error_message) }
         )

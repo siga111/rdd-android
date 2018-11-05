@@ -2,6 +2,7 @@ package lv.rigadevday.android.ui.schedule.day
 
 import android.os.Bundle
 import android.view.View
+import com.brandongogetap.stickyheaders.StickyLayoutManager
 import kotlinx.android.synthetic.main.fragment_day_schedule.view.*
 import lv.rigadevday.android.R
 import lv.rigadevday.android.ui.EXTRA_SESSION_DATA
@@ -14,7 +15,6 @@ import lv.rigadevday.android.ui.schedule.toBundle
 import lv.rigadevday.android.ui.schedule.toIntentData
 import lv.rigadevday.android.utils.BaseApp
 import lv.rigadevday.android.utils.showMessage
-import org.zakariya.stickyheaders.StickyHeaderLayoutManager
 
 class DayScheduleFragment : BaseFragment(), DayScheduleContract {
 
@@ -37,27 +37,27 @@ class DayScheduleFragment : BaseFragment(), DayScheduleContract {
     }
 
     override fun viewReady(view: View) {
-        timeslotData = arguments.getBundle(EXTRA_SESSION_DATA).toIntentData()
+        timeslotData = arguments!!.getBundle(EXTRA_SESSION_DATA)!!.toIntentData()
 
         with(view.schedule_recycler) {
-            layoutManager = StickyHeaderLayoutManager()
             adapter = listAdapter
+            layoutManager = StickyLayoutManager(requireContext(), listAdapter)
         }
 
         dataFetchSubscription = repo.scheduleDayTimeslots(timeslotData.dateCode)
             .toList()
             .subscribe(
-                { listAdapter.data = it },
+                { listAdapter.setTimeslots(it) },
                 { view.showMessage(R.string.error_message) }
             )
     }
 
     override fun openSession(sessionId: Int) {
-        context.openSessionDetailsActivity(sessionId)
+        requireContext().openSessionDetailsActivity(sessionId)
     }
 
     override fun openSpeaker(speakerId: Int) {
-        context.openSpeakerActivity(speakerId)
+        requireContext().openSpeakerActivity(speakerId)
     }
 
     override fun onResume() {

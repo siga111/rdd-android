@@ -34,7 +34,7 @@ class Repository(
 ) {
 
     private val database: DatabaseReference by lazy {
-        FirebaseDatabase.getInstance().reference.apply { keepSynced(true) }
+        FirebaseDatabase.getInstance("https://devfest-2018.firebaseio.com/").reference.apply { keepSynced(true) }
     }
 
     val cacheUpdated: PublishSubject<Boolean> by lazy {

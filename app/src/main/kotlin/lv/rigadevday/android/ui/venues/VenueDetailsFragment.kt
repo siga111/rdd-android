@@ -34,7 +34,7 @@ class VenueDetailsFragment : BaseFragment() {
     }
 
     override fun viewReady(view: View) {
-        val index = arguments.getInt(EXTRA_VENUE_INDEX)
+        val index = arguments!!.getInt(EXTRA_VENUE_INDEX)
 
         dataFetchSubscription = repo.venue(index).subscribe(
             { populateView(view, it) },

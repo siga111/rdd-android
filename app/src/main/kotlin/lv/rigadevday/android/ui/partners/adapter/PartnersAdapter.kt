@@ -11,6 +11,7 @@ import lv.rigadevday.android.repository.model.partners.Logo
 import lv.rigadevday.android.ui.partners.adapter.PartnersItem.PartnerLogo
 import lv.rigadevday.android.ui.partners.adapter.PartnersItem.PartnerTitle
 import lv.rigadevday.android.utils.hide
+import lv.rigadevday.android.utils.inflate
 import lv.rigadevday.android.utils.loadLogo
 import lv.rigadevday.android.utils.show
 
@@ -30,7 +31,7 @@ class PartnersAdapter(private val openOnClick: (String) -> Unit) : RecyclerView.
     override fun getItemCount() = data.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+        val view = parent.inflate(viewType)
         return when (viewType) {
             R.layout.item_partners_logo -> LogoHolder(view)
             else -> TitleHolder(view)

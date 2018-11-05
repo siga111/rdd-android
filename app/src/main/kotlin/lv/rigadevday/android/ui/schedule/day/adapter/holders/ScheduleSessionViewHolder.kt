@@ -1,21 +1,17 @@
 package lv.rigadevday.android.ui.schedule.day.adapter.holders
 
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.item_schedule_session.view.*
 import lv.rigadevday.android.repository.model.schedule.Session
 import lv.rigadevday.android.ui.schedule.day.DayScheduleContract
-import lv.rigadevday.android.utils.hide
 import lv.rigadevday.android.utils.loadCircleAvatar
-import lv.rigadevday.android.utils.show
-import org.zakariya.stickyheaders.SectioningAdapter
 
-class ScheduleSessionViewHolder(itemView: View) : SectioningAdapter.ItemViewHolder(itemView) {
+class ScheduleSessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(item: Session, contract: DayScheduleContract, showDivider: Boolean) = with(itemView) {
+    fun bind(item: Session, contract: DayScheduleContract) = with(itemView) {
         schedule_item_title.text = item.title
         schedule_item_room.text = item.location
-
-        if (showDivider) schedule_item_divider.show() else schedule_item_divider.hide()
 
         item.mainSpeaker?.let { (id, _, name, _, _, photoUrl) ->
             schedule_item_speaker.text = name

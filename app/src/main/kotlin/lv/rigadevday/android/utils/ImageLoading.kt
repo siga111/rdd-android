@@ -3,12 +3,10 @@ package lv.rigadevday.android.utils
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.target.Target
 import lv.rigadevday.android.R
 
@@ -32,21 +30,14 @@ fun ImageView.loadSquareAvatar(url: String): Target<Drawable> = getFetcherInstan
     )
     .into(this)
 
-fun ImageView.loadLogo(url: String, onDone: () -> Unit): Target<Drawable> = getFetcherInstance(url)
+fun ImageView.loadLogo(url: String, onError: () -> Unit): Target<Drawable> = getFetcherInstance(url)
     .apply(defaultOptions.fitCenter())
-        .listener(object : RequestListener<Drawable>{
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                onDone()
-                return true
-            }
-
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                onDone()
-                return true
-            }
-
-        })
-    .into(this)
+    .into(object: DrawableImageViewTarget(this){
+        override fun onLoadFailed(errorDrawable: Drawable?) {
+            super.onLoadFailed(errorDrawable)
+            onError()
+        }
+    })
 
 fun ImageView.loadVenueImage(url: String): Target<Drawable> = getFetcherInstance(url)
     .apply(defaultOptions.centerCrop())

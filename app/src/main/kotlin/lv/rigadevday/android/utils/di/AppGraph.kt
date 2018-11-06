@@ -2,6 +2,7 @@ package lv.rigadevday.android.utils.di
 
 import dagger.Component
 import lv.rigadevday.android.ui.licences.LicencesActivity
+import lv.rigadevday.android.ui.lottery.LotteryFragment
 import lv.rigadevday.android.ui.partners.PartnersFragment
 import lv.rigadevday.android.ui.schedule.MyScheduleFragment
 import lv.rigadevday.android.ui.schedule.day.DayScheduleFragment
@@ -41,6 +42,7 @@ interface AppGraph {
     fun inject(fragment: PartnersFragment)
     fun inject(fragment: VenuesFragment)
     fun inject(fragment: VenueDetailsFragment)
+    fun inject(fragment: LotteryFragment)
 
     // Services
     fun inject(service: CustomMessagingService)

@@ -8,6 +8,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_tab.*
 import lv.rigadevday.android.R
 import lv.rigadevday.android.ui.base.BaseActivity
+import lv.rigadevday.android.ui.lottery.LotteryFragment
 import lv.rigadevday.android.ui.openLicencesActivity
 import lv.rigadevday.android.ui.openTwitter
 import lv.rigadevday.android.ui.partners.PartnersFragment
@@ -31,6 +32,7 @@ class TabActivity : BaseActivity() {
     private val speakersFragment: Fragment by lazy { SpeakerListFragment() }
     private val venuesFragment: Fragment by lazy { VenuesFragment() }
     private val partnersFragment: Fragment by lazy { PartnersFragment() }
+    private val lotteryFragment: LotteryFragment by lazy { LotteryFragment() }
 
     override fun inject() {
         BaseApp.graph.inject(this)
@@ -56,6 +58,7 @@ class TabActivity : BaseActivity() {
         R.id.action_tab_schedule -> scheduleFragment
         R.id.action_tab_speakers -> speakersFragment
         R.id.action_tab_venues -> venuesFragment
+        R.id.action_tab_lottery -> lotteryFragment
         else -> partnersFragment
     }
 
@@ -81,5 +84,6 @@ class TabActivity : BaseActivity() {
 
     override fun refreshLoginState() {
         invalidateOptionsMenu()
+        lotteryFragment.refreshLoginState()
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/base_margin">
+
+    <TextView
+        android:id="@+id/lottery_item_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_margin"
+        android:textColor="@color/text_dark_primary"
+        android:textSize="@dimen/text_size_body"
+        app:layout_constraintBottom_toBottomOf="@+id/lottery_item_email_delete"
+        app:layout_constraintEnd_toStartOf="@+id/lottery_item_email_delete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lottery_item_email_delete"
+        tools:text="@tools:sample/full_names" />
+
+    <ImageButton
+        android:id="@+id/lottery_item_email_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:foreground="@drawable/item_selector_borderless"
+        android:padding="@dimen/base_margin"
+        android:src="@drawable/vector_delete"
+        android:tint="@color/text_dark_primary"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

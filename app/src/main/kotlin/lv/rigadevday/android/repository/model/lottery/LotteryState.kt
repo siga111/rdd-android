@@ -5,7 +5,7 @@ sealed class LotteryState {
     object NotLoggedIn: LotteryState()
 
     data class Partner(
-        val emails: Map<String, String>
+        val emails: List<ParticipantEmail>
     ): LotteryState()
 
     data class Participant(

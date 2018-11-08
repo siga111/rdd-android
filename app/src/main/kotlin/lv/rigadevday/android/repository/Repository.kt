@@ -13,6 +13,7 @@ import lv.rigadevday.android.R
 import lv.rigadevday.android.repository.model.Root
 import lv.rigadevday.android.repository.model.lottery.LotteryPartner
 import lv.rigadevday.android.repository.model.lottery.LotteryState
+import lv.rigadevday.android.repository.model.lottery.ParticipantEmail
 import lv.rigadevday.android.repository.model.lottery.PartnerStatus
 import lv.rigadevday.android.repository.model.other.Venue
 import lv.rigadevday.android.repository.model.partners.Partners
@@ -152,21 +153,22 @@ class Repository(
     }
 
     // Lottery
+    private fun lotteryPartners() = database.child("lotteryPartners")
+    private fun lotteryRef() = database.child("lottery")
 
     fun getLotteryState(): Flowable<out LotteryState> =
         if (!authStorage.hasLogin) Flowable.just(LotteryState.NotLoggedIn)
         else {
-            val lotteryRef = database.child("lottery")
             val userUid = authStorage.uId
 
             RxFirebaseDatabase.observeValueEvent(
-                database.child("lotteryPartners"),
+                lotteryPartners(),
                 DataSnapshotMapper.listOf(LotteryPartner::class.java)
             ).flatMap { partners ->
                 if (partners.map { it.id }.contains(userUid)) {
-                    lotteryRef.child(userUid).subscribeToPartnerData()
+                    lotteryRef().child(userUid).subscribeToPartnerData()
                 } else {
-                    lotteryRef.subscribeToParticipantData(partners, userUid)
+                    lotteryRef().subscribeToParticipantData(partners, userUid)
                 }
             }
         }.bindSchedulers()
@@ -175,7 +177,7 @@ class Repository(
         RxFirebaseDatabase.observeValueEvent(
             this,
             DataSnapshotMapper.mapOf(String::class.java)
-        ).map { LotteryState.Partner(it.toMap()) }
+        ).map { LotteryState.Partner(it.map { (id, email) -> ParticipantEmail(id, email) }) }
 
     private fun DatabaseReference.subscribeToParticipantData(partners: List<LotteryPartner>, userUid: String) =
         Flowable.combineLatest<PartnerStatus, LotteryState.Participant>(
@@ -192,4 +194,9 @@ class Repository(
             )
         }
 
+    fun deleteParticipantEmail(item: ParticipantEmail) {
+        if (authStorage.hasLogin) {
+            lotteryRef().child(authStorage.uId).child(item.id).removeValue()
+        }
+    }
 }

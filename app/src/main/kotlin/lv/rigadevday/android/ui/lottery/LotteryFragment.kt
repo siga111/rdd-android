@@ -1,10 +1,14 @@
 package lv.rigadevday.android.ui.lottery
 
+import android.support.v7.app.AlertDialog
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_lottery.*
 import lv.rigadevday.android.R
 import lv.rigadevday.android.repository.model.lottery.LotteryState
+import lv.rigadevday.android.repository.model.lottery.ParticipantEmail
 import lv.rigadevday.android.ui.base.BaseFragment
+import lv.rigadevday.android.ui.lottery.partner.ParticipantEmailsAdapter
 import lv.rigadevday.android.utils.*
 import lv.rigadevday.android.utils.auth.AuthStorage
 import javax.inject.Inject
@@ -15,6 +19,8 @@ class LotteryFragment : BaseFragment() {
     lateinit var authStorage: AuthStorage
 
     override val layoutId = R.layout.fragment_lottery
+
+    private var emailAdapter: ParticipantEmailsAdapter? = null
 
     override fun inject() {
         BaseApp.graph.inject(this)
@@ -40,22 +46,14 @@ class LotteryFragment : BaseFragment() {
         lottery_empty_state.hide()
         dataFetchSubscription = repo.getLotteryState()
             .subscribe(
-                {state ->
-                    when (state) {
-                        is LotteryState.NotLoggedIn -> showEmptyState()
-                        is LotteryState.Partner -> {
-                            setupPartner(state)
-                        }
-                        is LotteryState.Participant -> {
-                            setupParticipant(state)
-                        }
-                    }
-
-                },
                 {
-                    it.printStackTrace()
-                    requireContext().showMessage(R.string.error_message)
-                }
+                    when (it) {
+                        is LotteryState.NotLoggedIn -> showEmptyState()
+                        is LotteryState.Partner -> setupPartner(it)
+                        is LotteryState.Participant -> setupParticipant(it)
+                    }
+                },
+                { requireContext().showMessage(R.string.error_message) }
             )
     }
 
@@ -65,9 +63,25 @@ class LotteryFragment : BaseFragment() {
     }
 
     private fun setupPartner(state: LotteryState.Partner) {
-        lottery_recycler.show()
         lottery_empty_state.hide()
-        state.logE()
+        if (emailAdapter == null) {
+            emailAdapter = ParticipantEmailsAdapter { deleteEmail(it) }
+        }
+        emailAdapter?.submitList(state.emails)
+        lottery_recycler.apply {
+            adapter   = emailAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun deleteEmail(item: ParticipantEmail) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(R.string.lottery_email_delete_message)
+            .setPositiveButton(R.string.lottery_email_delete_action) { di, _ ->
+                repo.deleteParticipantEmail(item)
+                di.dismiss()
+            }
+            .show()
     }
 
     private fun setupParticipant(state: LotteryState.Participant) {

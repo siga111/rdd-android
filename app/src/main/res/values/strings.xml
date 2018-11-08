@@ -42,6 +42,8 @@
     <string name="partners_title">Partners</string>
 
     <string name="lottery_login_to_participate">Log in to participate</string>
+    <string name="lottery_email_delete_message">Delete this participant\'s email?</string>
+    <string name="lottery_email_delete_action">Delete</string>
 
     <string name="auth_login_success">Login successful</string>
     <string name="auth_login_failed">Login failed</string>

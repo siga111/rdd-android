@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.part_toolbar.*
@@ -26,7 +27,7 @@ abstract class BaseFragment : Fragment() {
 
     open val ignoreUiUpdates: Boolean = false
 
-    protected var dataFetchSubscription: Disposable? = null
+    protected var dataFetchSubscription: CompositeDisposable = CompositeDisposable()
     private var uiUpdateSubscription: Disposable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
@@ -55,7 +56,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onStop() {
-        dataFetchSubscription?.dispose()
+        dataFetchSubscription.dispose()
         super.onStop()
     }
 

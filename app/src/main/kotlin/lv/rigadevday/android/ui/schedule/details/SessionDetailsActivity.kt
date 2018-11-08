@@ -8,12 +8,8 @@ import lv.rigadevday.android.ui.EXTRA_SESSION_ID
 import lv.rigadevday.android.ui.base.BaseActivity
 import lv.rigadevday.android.ui.openRateSessionActivity
 import lv.rigadevday.android.ui.openSpeakerActivity
-import lv.rigadevday.android.utils.BaseApp
+import lv.rigadevday.android.utils.*
 import lv.rigadevday.android.utils.auth.AuthStorage
-import lv.rigadevday.android.utils.bindSchedulers
-import lv.rigadevday.android.utils.fromHtml
-import lv.rigadevday.android.utils.hide
-import lv.rigadevday.android.utils.showMessage
 import java.util.*
 import javax.inject.Inject
 
@@ -43,7 +39,7 @@ class SessionDetailsActivity : BaseActivity() {
 
         updateLoginRateButton()
 
-        dataFetchSubscription = repo.session(sessionId)
+        dataFetchSubscription += repo.session(sessionId)
             .subscribe(
                 { session ->
                     session_details_title.text = session.title

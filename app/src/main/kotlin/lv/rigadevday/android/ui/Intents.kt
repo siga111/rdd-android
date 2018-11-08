@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import lv.rigadevday.android.R
 import lv.rigadevday.android.ui.licences.LicencesActivity
+import lv.rigadevday.android.ui.lottery.LotteryActivity
 import lv.rigadevday.android.ui.schedule.TimeslotData
 import lv.rigadevday.android.ui.schedule.details.SessionDetailsActivity
 import lv.rigadevday.android.ui.schedule.rate.RateActivity
@@ -50,6 +51,10 @@ fun Context.openRateSessionActivity(sessionId: Int) {
 
 fun Context.openLicencesActivity() {
     Intent(this, LicencesActivity::class.java).start(from = this)
+}
+
+fun Context.openLotteryActivity() {
+    Intent(this, LotteryActivity::class.java).start(from = this)
 }
 
 fun Context.openWeb(link: String) {

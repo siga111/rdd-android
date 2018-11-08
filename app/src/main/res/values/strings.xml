@@ -13,7 +13,6 @@
     <string name="tab_speakers">Speakers</string>
     <string name="tab_venues">Venues</string>
     <string name="tab_partners">Partners</string>
-    <string name="tab_lottery">Lottery</string>
 
     <string name="speaker_company">at %s</string>
 
@@ -41,6 +40,7 @@
 
     <string name="partners_title">Partners</string>
 
+    <string name="lottery_title">Lottery</string>
     <string name="lottery_login_to_participate">Log in to participate</string>
     <string name="lottery_email_delete_message">Delete this participant\'s email?</string>
     <string name="lottery_email_delete_action">Delete</string>

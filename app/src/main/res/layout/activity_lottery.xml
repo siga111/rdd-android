@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_drawer_layout"
+    style="@style/Match"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/part_toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/lottery_frame"
+            style="@style/Match"
+            tools:background="#a5f4" />
+
+        <Button
+            android:id="@+id/lottery_empty_state"
+            style="@style/Wrap"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:foreground="@drawable/item_selector_borderless"
+            android:gravity="center"
+            android:padding="@dimen/base_margin"
+            android:text="@string/lottery_login_to_participate"
+            android:textColor="@color/color_accent"
+            android:textSize="@dimen/text_size_title" />
+
+    </FrameLayout>
+</LinearLayout>

@@ -3,21 +3,8 @@
     style="@style/Match"
     android:orientation="vertical">
 
-    <include layout="@layout/part_toolbar" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lottery_recycler"
+        style="@style/Match" />
 
-    <FrameLayout style="@style/Match">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/lottery_recycler"
-            style="@style/Match" />
-
-        <TextView
-            android:id="@+id/lottery_empty_state"
-            style="@style/Match"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_title"
-            android:text="@string/lottery_login_to_participate"
-            android:textColor="@color/text_dark_primary" />
-
-    </FrameLayout>
 </LinearLayout>

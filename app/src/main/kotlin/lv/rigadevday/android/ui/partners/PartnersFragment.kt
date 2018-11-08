@@ -13,6 +13,7 @@ import lv.rigadevday.android.ui.partners.adapter.PartnersItem.PartnerLogo
 import lv.rigadevday.android.ui.partners.adapter.PartnersItem.PartnerTitle
 import lv.rigadevday.android.utils.BaseApp
 import lv.rigadevday.android.utils.asFlowable
+import lv.rigadevday.android.utils.plus
 import lv.rigadevday.android.utils.showMessage
 
 class PartnersFragment : BaseFragment() {
@@ -37,7 +38,7 @@ class PartnersFragment : BaseFragment() {
             adapter = listAdapter
         }
 
-        dataFetchSubscription = repo.partners()
+        dataFetchSubscription += repo.partners()
             .flatMap {
                 PartnerTitle(it.actualTitle)
                     .asFlowable<PartnersItem>()

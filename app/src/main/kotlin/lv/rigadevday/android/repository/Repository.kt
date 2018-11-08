@@ -11,10 +11,7 @@ import io.reactivex.functions.Function5
 import io.reactivex.subjects.PublishSubject
 import lv.rigadevday.android.R
 import lv.rigadevday.android.repository.model.Root
-import lv.rigadevday.android.repository.model.lottery.LotteryPartner
-import lv.rigadevday.android.repository.model.lottery.LotteryState
-import lv.rigadevday.android.repository.model.lottery.ParticipantEmail
-import lv.rigadevday.android.repository.model.lottery.PartnerStatus
+import lv.rigadevday.android.repository.model.lottery.*
 import lv.rigadevday.android.repository.model.other.Venue
 import lv.rigadevday.android.repository.model.partners.Partners
 import lv.rigadevday.android.repository.model.schedule.Rating
@@ -154,49 +151,57 @@ class Repository(
 
     // Lottery
     private fun lotteryPartners() = database.child("lotteryPartners")
+
     private fun lotteryRef() = database.child("lottery")
 
-    fun getLotteryState(): Flowable<out LotteryState> =
-        if (!authStorage.hasLogin) Flowable.just(LotteryState.NotLoggedIn)
+    fun getLotteryState(): Single<out LotteryState> =
+        if (!authStorage.hasLogin) Single.just(LotteryState.NotLoggedIn)
         else {
-            val userUid = authStorage.uId
-
-            RxFirebaseDatabase.observeValueEvent(
+            RxFirebaseDatabase.observeSingleValueEvent(
                 lotteryPartners(),
                 DataSnapshotMapper.listOf(LotteryPartner::class.java)
-            ).flatMap { partners ->
-                if (partners.map { it.id }.contains(userUid)) {
-                    lotteryRef().child(userUid).subscribeToPartnerData()
-                } else {
-                    lotteryRef().subscribeToParticipantData(partners, userUid)
-                }
-            }
+            ).map { partners ->
+                if (partners.map { it.id }.contains(authStorage.uId)) LotteryState.Partner
+                else LotteryState.Participant
+            }.toSingle(LotteryState.NotLoggedIn)
         }.bindSchedulers()
 
-    private fun DatabaseReference.subscribeToPartnerData() =
+    fun lotteryParticipantEmails(): Flowable<List<ParticipantEmail>> = if (authStorage.hasLogin) {
         RxFirebaseDatabase.observeValueEvent(
-            this,
+            lotteryRef().child(authStorage.uId),
             DataSnapshotMapper.mapOf(String::class.java)
-        ).map { LotteryState.Partner(it.map { (id, email) -> ParticipantEmail(id, email) }) }
-
-    private fun DatabaseReference.subscribeToParticipantData(partners: List<LotteryPartner>, userUid: String) =
-        Flowable.combineLatest<PartnerStatus, LotteryState.Participant>(
-            partners.map { partner ->
-                RxFirebaseDatabase.observeValueEvent(child(partner.id).child(userUid)).map {
-                    PartnerStatus(userUid, partner.logoUrl, (it.getValue(String::class.java) != null))
-                }
-            }
-        ) { status: Array<in PartnerStatus> ->
-            LotteryState.Participant(
-                authStorage.uId,
-                authStorage.email,
-                status.map { it as PartnerStatus }
-            )
-        }
+        ).map { it.map { (id, email) -> ParticipantEmail(id, email) } }
+    } else {
+        Flowable.just(emptyList())
+    }.bindSchedulers()
 
     fun deleteParticipantEmail(item: ParticipantEmail) {
         if (authStorage.hasLogin) {
             lotteryRef().child(authStorage.uId).child(item.id).removeValue()
         }
     }
+
+    private fun lotteryParticipantData(): Flowable<ParticipantData> = if (authStorage.hasLogin) {
+        val userUid = authStorage.uId
+        RxFirebaseDatabase.observeValueEvent(
+            lotteryPartners(),
+            DataSnapshotMapper.listOf(LotteryPartner::class.java)
+        ).flatMap { partners ->
+            Flowable.combineLatest<PartnerStatus, ParticipantData>(
+                partners.map { partner ->
+                    RxFirebaseDatabase.observeValueEvent(lotteryRef().child(partner.id).child(userUid)).map {
+                        PartnerStatus(userUid, partner.logoUrl, (it.getValue(String::class.java) != null))
+                    }
+                }
+            ) { status: Array<in PartnerStatus> ->
+                ParticipantData(
+                    authStorage.uId,
+                    authStorage.email,
+                    status.map { it as PartnerStatus }
+                )
+            }
+        }
+    } else {
+        Flowable.empty<ParticipantData>()
+    }.bindSchedulers()
 }

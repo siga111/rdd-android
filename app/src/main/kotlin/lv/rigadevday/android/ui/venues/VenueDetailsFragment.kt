@@ -9,11 +9,7 @@ import lv.rigadevday.android.repository.model.other.Venue
 import lv.rigadevday.android.ui.base.BaseFragment
 import lv.rigadevday.android.ui.openMap
 import lv.rigadevday.android.ui.openWeb
-import lv.rigadevday.android.utils.BaseApp
-import lv.rigadevday.android.utils.fromHtml
-import lv.rigadevday.android.utils.loadVenueImage
-import lv.rigadevday.android.utils.showMessage
-import lv.rigadevday.android.utils.toExtraKey
+import lv.rigadevday.android.utils.*
 
 class VenueDetailsFragment : BaseFragment() {
 
@@ -36,7 +32,7 @@ class VenueDetailsFragment : BaseFragment() {
     override fun viewReady(view: View) {
         val index = arguments!!.getInt(EXTRA_VENUE_INDEX)
 
-        dataFetchSubscription = repo.venue(index).subscribe(
+        dataFetchSubscription += repo.venue(index).subscribe(
             { populateView(view, it) },
             { view.showMessage(R.string.error_message) }
         )

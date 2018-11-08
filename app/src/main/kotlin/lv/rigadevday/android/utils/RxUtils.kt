@@ -3,6 +3,8 @@ package lv.rigadevday.android.utils
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
@@ -20,3 +22,5 @@ fun <T> Flowable<T>.bindSchedulers(): Flowable<T> = this
     .observeOn(AndroidSchedulers.mainThread())
 
 fun <T, R> biFunction(function: (T, R) -> T): BiFunction<T, R, T> = BiFunction(function)
+
+operator fun CompositeDisposable.plus(d: Disposable) = also { it.add(d) }

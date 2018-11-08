@@ -9,6 +9,7 @@ import lv.rigadevday.android.ui.openSessionDetailsActivity
 import lv.rigadevday.android.ui.openSpeakerActivity
 import lv.rigadevday.android.utils.BaseApp
 import lv.rigadevday.android.utils.bindSchedulers
+import lv.rigadevday.android.utils.plus
 import lv.rigadevday.android.utils.showMessage
 
 class SessionsActivity : BaseActivity() {
@@ -40,7 +41,7 @@ class SessionsActivity : BaseActivity() {
             adapter = listAdapter
         }
 
-        dataFetchSubscription = repo.sessions()
+        dataFetchSubscription += repo.sessions()
             .filter { it.speakers.isNotEmpty() }
             .toList()
             .subscribe(
@@ -58,7 +59,7 @@ class SessionsActivity : BaseActivity() {
     }
 
     private fun filterBookmarked() {
-        dataFetchSubscription = repo.bookmarkedIds()
+        dataFetchSubscription += repo.bookmarkedIds()
             .bindSchedulers()
             .subscribe(
                 { bookmarkedIds ->

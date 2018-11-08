@@ -8,6 +8,7 @@ import lv.rigadevday.android.ui.base.BaseActivity
 import lv.rigadevday.android.ui.openSpeakerActivity
 import lv.rigadevday.android.utils.BaseApp
 import lv.rigadevday.android.utils.biFunction
+import lv.rigadevday.android.utils.plus
 import lv.rigadevday.android.utils.showMessage
 
 class RateActivity : BaseActivity() {
@@ -19,7 +20,7 @@ class RateActivity : BaseActivity() {
     override fun viewReady() {
         val sessionId = intent.extras.getInt(EXTRA_SESSION_ID)
 
-        dataFetchSubscription = repo.session(sessionId)
+        dataFetchSubscription += repo.session(sessionId)
             .zipWith(repo.rating(sessionId), biFunction { session, rating ->
                 session.also { it.rating = rating }
             })

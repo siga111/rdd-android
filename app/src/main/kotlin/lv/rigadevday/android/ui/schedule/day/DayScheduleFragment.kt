@@ -14,6 +14,7 @@ import lv.rigadevday.android.ui.schedule.day.adapter.ScheduleAdapter
 import lv.rigadevday.android.ui.schedule.toBundle
 import lv.rigadevday.android.ui.schedule.toIntentData
 import lv.rigadevday.android.utils.BaseApp
+import lv.rigadevday.android.utils.plus
 import lv.rigadevday.android.utils.showMessage
 
 class DayScheduleFragment : BaseFragment(), DayScheduleContract {
@@ -44,7 +45,7 @@ class DayScheduleFragment : BaseFragment(), DayScheduleContract {
             layoutManager = StickyLayoutManager(requireContext(), listAdapter)
         }
 
-        dataFetchSubscription = repo.scheduleDayTimeslots(timeslotData.dateCode)
+        dataFetchSubscription += repo.scheduleDayTimeslots(timeslotData.dateCode)
             .toList()
             .subscribe(
                 { listAdapter.setTimeslots(it) },

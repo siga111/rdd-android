@@ -6,6 +6,7 @@ import lv.rigadevday.android.R
 import lv.rigadevday.android.ui.base.BaseFragment
 import lv.rigadevday.android.ui.base.ViewPagerAdapter
 import lv.rigadevday.android.utils.BaseApp
+import lv.rigadevday.android.utils.plus
 import lv.rigadevday.android.utils.showMessage
 
 class VenuesFragment : BaseFragment() {
@@ -24,7 +25,7 @@ class VenuesFragment : BaseFragment() {
 
         pageAdapter = ViewPagerAdapter(childFragmentManager)
 
-        dataFetchSubscription = repo.venues().toList().subscribe(
+        dataFetchSubscription += repo.venues().toList().subscribe(
             {
                 it.forEachIndexed { i, (title) ->
                     pageAdapter.addFragment(VenueDetailsFragment.newInstance(i), title)

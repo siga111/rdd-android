@@ -13,6 +13,7 @@ import lv.rigadevday.android.ui.openSessionsActivity
 import lv.rigadevday.android.ui.schedule.day.DayScheduleFragment
 import lv.rigadevday.android.utils.BaseApp
 import lv.rigadevday.android.utils.DATE_FORMAT
+import lv.rigadevday.android.utils.plus
 import lv.rigadevday.android.utils.showMessage
 import java.util.*
 
@@ -38,7 +39,7 @@ class MyScheduleFragment : BaseFragment() {
         val currentDate = DATE_FORMAT.format(Date())
         pageAdapter = ViewPagerAdapter(childFragmentManager)
 
-        dataFetchSubscription = repo.schedule().toList().subscribe(
+        dataFetchSubscription += repo.schedule().toList().subscribe(
             { days ->
                 days.forEach {
                     pageAdapter.addFragment(DayScheduleFragment.newInstance(it.date, it.dateReadable), it.dateReadable)

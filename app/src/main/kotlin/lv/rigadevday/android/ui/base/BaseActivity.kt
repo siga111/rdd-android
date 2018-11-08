@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.part_toolbar.*
@@ -34,7 +35,7 @@ abstract class BaseActivity : AppCompatActivity(), LoginContract {
 
     abstract fun viewReady()
 
-    protected var dataFetchSubscription: Disposable? = null
+    protected var dataFetchSubscription: CompositeDisposable = CompositeDisposable()
     private var uiUpdateSubscription: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,9 +66,9 @@ abstract class BaseActivity : AppCompatActivity(), LoginContract {
         super.onPause()
     }
 
-    override fun onStop() {
-        dataFetchSubscription?.dispose()
-        super.onStop()
+    override fun onDestroy() {
+        dataFetchSubscription.dispose()
+        super.onDestroy()
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -135,5 +136,6 @@ abstract class BaseActivity : AppCompatActivity(), LoginContract {
                 }
             }
     }
+
 
 }

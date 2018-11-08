@@ -7,6 +7,7 @@ import lv.rigadevday.android.R
 import lv.rigadevday.android.ui.base.BaseFragment
 import lv.rigadevday.android.ui.openSpeakerActivity
 import lv.rigadevday.android.utils.BaseApp
+import lv.rigadevday.android.utils.plus
 import lv.rigadevday.android.utils.showMessage
 
 class SpeakerListFragment : BaseFragment() {
@@ -29,7 +30,7 @@ class SpeakerListFragment : BaseFragment() {
             adapter = listAdapter
         }
 
-       dataFetchSubscription = repo.speakers().toList().subscribe(
+       dataFetchSubscription += repo.speakers().toList().subscribe(
             { list -> listAdapter.data = list },
             { view.showMessage(R.string.error_message) }
         )

@@ -16,6 +16,9 @@ class AuthStorage @Inject constructor() {
     val uId: String
         get() = auth.currentUser?.uid ?: throw IllegalStateException("all bad")
 
+    val email: String
+        get() = auth.currentUser?.email ?: throw IllegalStateException("all bad")
+
     fun signOut() {
         auth.signOut()
     }

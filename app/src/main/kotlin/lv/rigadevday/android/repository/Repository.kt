@@ -7,10 +7,13 @@ import durdinapps.rxfirebase2.DataSnapshotMapper
 import durdinapps.rxfirebase2.RxFirebaseDatabase
 import io.reactivex.Flowable
 import io.reactivex.Single
-import io.reactivex.functions.Function6
+import io.reactivex.functions.Function5
 import io.reactivex.subjects.PublishSubject
 import lv.rigadevday.android.R
 import lv.rigadevday.android.repository.model.Root
+import lv.rigadevday.android.repository.model.lottery.LotteryPartner
+import lv.rigadevday.android.repository.model.lottery.LotteryState
+import lv.rigadevday.android.repository.model.lottery.PartnerStatus
 import lv.rigadevday.android.repository.model.other.Venue
 import lv.rigadevday.android.repository.model.partners.Partners
 import lv.rigadevday.android.repository.model.schedule.Rating
@@ -45,8 +48,7 @@ class Repository(
                 RxFirebaseDatabase.observeValueEvent(database.child("speakers"), DataSnapshotMapper.listOf(Speaker::class.java)),
                 RxFirebaseDatabase.observeValueEvent(database.child("schedule"), DataSnapshotMapper.listOf(Schedule::class.java)),
                 RxFirebaseDatabase.observeValueEvent(database.child("sessions"), DataSnapshotMapper.mapOf(Session::class.java)),
-                RxFirebaseDatabase.observeValueEvent(database.child("resources"), DataSnapshotMapper.mapOf(String::class.java)),
-                Function6 { _: List<Partners>, _: List<Venue>, _: List<Speaker>, _: List<Schedule>, _: Map<String, Session>, _: Map<String, String> -> }
+                Function5 { _: List<Partners>, _: List<Venue>, _: List<Speaker>, _: List<Schedule>, _: Map<String, Session> -> }
             )
                 .debounce(1, TimeUnit.SECONDS)
                 .skip(1)
@@ -148,4 +150,46 @@ class Repository(
             bookmarkedSessions().child(sessionId.toString()).removeValue()
         }
     }
+
+    // Lottery
+
+    fun getLotteryState(): Flowable<out LotteryState> =
+        if (!authStorage.hasLogin) Flowable.just(LotteryState.NotLoggedIn)
+        else {
+            val lotteryRef = database.child("lottery")
+            val userUid = authStorage.uId
+
+            RxFirebaseDatabase.observeValueEvent(
+                database.child("lotteryPartners"),
+                DataSnapshotMapper.listOf(LotteryPartner::class.java)
+            ).flatMap { partners ->
+                if (partners.map { it.id }.contains(userUid)) {
+                    lotteryRef.child(userUid).subscribeToPartnerData()
+                } else {
+                    lotteryRef.subscribeToParticipantData(partners, userUid)
+                }
+            }
+        }.bindSchedulers()
+
+    private fun DatabaseReference.subscribeToPartnerData() =
+        RxFirebaseDatabase.observeValueEvent(
+            this,
+            DataSnapshotMapper.mapOf(String::class.java)
+        ).map { LotteryState.Partner(it.toMap()) }
+
+    private fun DatabaseReference.subscribeToParticipantData(partners: List<LotteryPartner>, userUid: String) =
+        Flowable.combineLatest<PartnerStatus, LotteryState.Participant>(
+            partners.map { partner ->
+                RxFirebaseDatabase.observeValueEvent(child(partner.id).child(userUid)).map {
+                    PartnerStatus(userUid, partner.logoUrl, (it.getValue(String::class.java) != null))
+                }
+            }
+        ) { status: Array<in PartnerStatus> ->
+            LotteryState.Participant(
+                authStorage.uId,
+                authStorage.email,
+                status.map { it as PartnerStatus }
+            )
+        }
+
 }

@@ -19,6 +19,7 @@ build/
 target/
 .gradle/
 gen-external-apklibs/
+app/release
 
 # Project files
 .idea/

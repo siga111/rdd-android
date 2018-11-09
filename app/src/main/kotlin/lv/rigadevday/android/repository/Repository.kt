@@ -187,27 +187,23 @@ class Repository(
         }
     }
 
-    private fun lotteryParticipantData(): Flowable<ParticipantData> = if (authStorage.hasLogin) {
+    fun lotteryPartnerStatuses(): Flowable<List<PartnerStatus>> = if (authStorage.hasLogin) {
         val userUid = authStorage.uId
         RxFirebaseDatabase.observeValueEvent(
             lotteryPartners(),
             DataSnapshotMapper.listOf(LotteryPartner::class.java)
         ).flatMap { partners ->
-            Flowable.combineLatest<PartnerStatus, ParticipantData>(
+            Flowable.combineLatest<PartnerStatus, List<PartnerStatus>>(
                 partners.map { partner ->
                     RxFirebaseDatabase.observeValueEvent(lotteryRef().child(partner.id).child(userUid)).map {
-                        PartnerStatus(userUid, partner.logoUrl, (it.getValue(String::class.java) != null))
+                        PartnerStatus(partner, (it.getValue(String::class.java) != null))
                     }
                 }
             ) { status: Array<in PartnerStatus> ->
-                ParticipantData(
-                    authStorage.uId,
-                    authStorage.email,
-                    status.map { it as PartnerStatus }
-                )
+                status.map { it as PartnerStatus }
             }
         }
     } else {
-        Flowable.empty<ParticipantData>()
+        Flowable.empty<List<PartnerStatus>>()
     }.bindSchedulers()
 }

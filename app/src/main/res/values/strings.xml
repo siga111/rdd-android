@@ -46,6 +46,7 @@
     <string name="lottery_login_to_participate">Log in to participate</string>
     <string name="lottery_email_delete_message">Delete this participant\'s email?</string>
     <string name="lottery_email_delete_action">Delete</string>
+    <string name="lottery_qr">QR code</string>
     <string name="lottery_scan_qr">Scan participants QR code</string>
     <string name="lottery_wrong_qr">Not a valid QR code</string>
 

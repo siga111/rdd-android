@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lv.rigadevday.android.utils.view.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/partners_item_root"
+    style="@style/MatchWrap"
+    android:layout_margin="@dimen/half_margin"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="@drawable/item_selector_borderless"
+    android:padding="@dimen/half_margin">
+
+    <TextView
+        android:id="@+id/lottery_partners_logo_item_name"
+        style="@style/MatchWrap"
+        android:layout_gravity="center"
+        android:fontFamily="@string/family_condensed"
+        android:textColor="@color/text_dark_secondary"
+        android:textSize="@dimen/text_size_caption" />
+
+    <ImageView
+        android:id="@+id/lottery_partners_logo_item_image"
+        style="@style/Match"
+        android:layout_gravity="center"
+        tools:background="#4d5" />
+
+    <ImageView
+        android:id="@+id/lottery_partners_logo_overlay"
+        style="@style/Match"
+        android:src="@drawable/disabled_partner_overlay"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/lottery_partners_logo_check"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/vector_check"
+        android:visibility="gone" />
+
+</lv.rigadevday.android.utils.view.SquareFrameLayout>

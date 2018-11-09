@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Patterns
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -28,8 +29,6 @@ class LotteryPartnerFragment : BaseFragment() {
     override val layoutId = R.layout.fragment_lottery
 
     private val emailAdapter = ParticipantEmailsAdapter { deleteEmail(it) }
-
-    private val resultRegex = Regex(".*\\n.*@.*\\..*")
 
     override fun inject() {
         BaseApp.graph.inject(this)
@@ -99,8 +98,8 @@ class LotteryPartnerFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let { res ->
             res.contents
-                ?.takeIf { it.matches(resultRegex) }
                 ?.split('\n')
+                ?.takeIf { Patterns.EMAIL_ADDRESS.matcher(it.last()).matches() }
                 ?.let { ParticipantEmail(it.first(), it.last()) }
                 ?.let { repo.saveParticipantEmail(it) }
                 ?: requireContext().showMessage(R.string.lottery_wrong_qr)

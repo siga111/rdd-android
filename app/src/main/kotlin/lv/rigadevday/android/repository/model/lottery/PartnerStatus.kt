@@ -1,7 +1,6 @@
 package lv.rigadevday.android.repository.model.lottery
 
 data class PartnerStatus(
-    val id: String,
-    val logoUrl: String,
+    val partner: LotteryPartner,
     val emailGiven: Boolean
 )

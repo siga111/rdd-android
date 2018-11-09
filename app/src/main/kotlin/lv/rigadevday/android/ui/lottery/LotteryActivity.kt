@@ -5,6 +5,7 @@ import lv.rigadevday.android.R
 import lv.rigadevday.android.repository.model.lottery.LotteryState.Participant
 import lv.rigadevday.android.repository.model.lottery.LotteryState.Partner
 import lv.rigadevday.android.ui.base.BaseActivity
+import lv.rigadevday.android.ui.lottery.participant.ParticipantFragment
 import lv.rigadevday.android.ui.lottery.partner.LotteryPartnerFragment
 import lv.rigadevday.android.utils.*
 import lv.rigadevday.android.utils.auth.AuthStorage
@@ -67,5 +68,10 @@ class LotteryActivity : BaseActivity() {
 
     private fun showParticipantScreen() {
         lottery_empty_state.hide()
+        lottery_frame.show()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.lottery_frame, ParticipantFragment())
+            .commit()
     }
 }

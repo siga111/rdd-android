@@ -181,6 +181,12 @@ class Repository(
         }
     }
 
+    fun saveParticipantEmail(item: ParticipantEmail) {
+        if (authStorage.hasLogin) {
+            lotteryRef().child(authStorage.uId).child(item.id).setValue(item.email)
+        }
+    }
+
     private fun lotteryParticipantData(): Flowable<ParticipantData> = if (authStorage.hasLogin) {
         val userUid = authStorage.uId
         RxFirebaseDatabase.observeValueEvent(

@@ -5,6 +5,7 @@ import lv.rigadevday.android.R
 import lv.rigadevday.android.repository.model.lottery.LotteryState.Participant
 import lv.rigadevday.android.repository.model.lottery.LotteryState.Partner
 import lv.rigadevday.android.ui.base.BaseActivity
+import lv.rigadevday.android.ui.lottery.partner.LotteryPartnerFragment
 import lv.rigadevday.android.utils.*
 import lv.rigadevday.android.utils.auth.AuthStorage
 import javax.inject.Inject
@@ -60,7 +61,7 @@ class LotteryActivity : BaseActivity() {
         lottery_frame.show()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.lottery_frame, LotteryFragment())
+            .replace(R.id.lottery_frame, LotteryPartnerFragment())
             .commit()
     }
 

@@ -8,6 +8,8 @@
     <string name="action_login">Log In</string>
     <string name="action_logout">Log Out</string>
     <string name="action_licences">About &amp; Licences</string>
+    <string name="action_export">Export email</string>
+    <string name="action_camera">Scan code</string>
 
     <string name="tab_schedule">Schedule</string>
     <string name="tab_speakers">Speakers</string>
@@ -40,10 +42,12 @@
 
     <string name="partners_title">Partners</string>
 
-    <string name="lottery_title">Lottery</string>
+    <string name="lottery_title">Partner Quest</string>
     <string name="lottery_login_to_participate">Log in to participate</string>
     <string name="lottery_email_delete_message">Delete this participant\'s email?</string>
     <string name="lottery_email_delete_action">Delete</string>
+    <string name="lottery_scan_qr">Scan participants QR code</string>
+    <string name="lottery_wrong_qr">Not a valid QR code</string>
 
     <string name="auth_login_success">Login successful</string>
     <string name="auth_login_failed">Login failed</string>

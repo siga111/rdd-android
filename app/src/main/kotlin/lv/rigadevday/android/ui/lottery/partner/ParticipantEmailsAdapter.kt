@@ -22,6 +22,8 @@ class ParticipantEmailsAdapter(
          holder.bind(getItem(position), onDelete)
     }
 
+    fun emails() = (0 until itemCount).map { getItem(it).email }
+
     companion object {
 
         private val DIFF = object: DiffUtil.ItemCallback<ParticipantEmail>(){

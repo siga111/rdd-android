@@ -8,7 +8,6 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_tab.*
 import lv.rigadevday.android.R
 import lv.rigadevday.android.ui.base.BaseActivity
-import lv.rigadevday.android.ui.lottery.LotteryFragment
 import lv.rigadevday.android.ui.openLicencesActivity
 import lv.rigadevday.android.ui.openLotteryActivity
 import lv.rigadevday.android.ui.openTwitter

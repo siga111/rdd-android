@@ -11,8 +11,8 @@ android {
         applicationId "lv.gdg.devfest2018"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 360
-        versionName "3.6.0"
+        versionCode 362
+        versionName "3.6.2"
     }
 
     signingConfigs {

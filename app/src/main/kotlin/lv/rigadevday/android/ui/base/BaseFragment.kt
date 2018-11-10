@@ -27,7 +27,7 @@ abstract class BaseFragment : Fragment() {
 
     open val ignoreUiUpdates: Boolean = false
 
-    protected var dataFetchSubscription: CompositeDisposable = CompositeDisposable()
+    protected lateinit var dataFetchSubscription: CompositeDisposable
     private var uiUpdateSubscription: Disposable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
@@ -36,6 +36,7 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         inject()
+        dataFetchSubscription = CompositeDisposable()
         viewReady(view)
     }
 
@@ -55,9 +56,9 @@ abstract class BaseFragment : Fragment() {
         super.onPause()
     }
 
-    override fun onStop() {
+    override fun onDestroyView() {
         dataFetchSubscription.dispose()
-        super.onStop()
+        super.onDestroyView()
     }
 
     fun setupActionBar(@StringRes title: Int) {

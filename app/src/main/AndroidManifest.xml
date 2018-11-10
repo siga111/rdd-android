@@ -36,7 +36,6 @@
 
         <activity
             android:name=".ui.speakers.SpeakerDialogActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/ThemeTranslucent"/>
 
         <activity
@@ -51,7 +50,6 @@
 
         <activity
             android:name=".ui.schedule.rate.RateActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/ThemeTranslucent"
             />
 

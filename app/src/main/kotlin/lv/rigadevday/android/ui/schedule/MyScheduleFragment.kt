@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import kotlinx.android.synthetic.main.fragment_my_schedule.view.*
+import kotlinx.android.synthetic.main.fragment_my_schedule.*
 import lv.rigadevday.android.R
 import lv.rigadevday.android.ui.base.BaseFragment
 import lv.rigadevday.android.ui.base.ViewPagerAdapter
@@ -35,9 +35,9 @@ class MyScheduleFragment : BaseFragment() {
 
     override fun viewReady(view: View) {
         setupActionBar(R.string.schedule_title)
+        pageAdapter = ViewPagerAdapter(childFragmentManager)
 
         val currentDate = DATE_FORMAT.format(Date())
-        pageAdapter = ViewPagerAdapter(childFragmentManager)
 
         dataFetchSubscription += repo.schedule().toList().subscribe(
             { days ->
@@ -45,14 +45,14 @@ class MyScheduleFragment : BaseFragment() {
                     pageAdapter.addFragment(DayScheduleFragment.newInstance(it.date, it.dateReadable), it.dateReadable)
                 }
 
-                with(view.schedule_pager) {
+                with(schedule_pager) {
                     offscreenPageLimit = 2
                     adapter = pageAdapter
                     currentItem = days.map { it.date }.indexOf(currentDate)
-                    view.schedule_tabs.setupWithViewPager(this)
+                    schedule_tabs.setupWithViewPager(this)
                 }
             },
-            { view.showMessage(R.string.error_message) }
+            { requireContext().showMessage(R.string.error_message) }
         )
     }
 

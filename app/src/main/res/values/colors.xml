@@ -13,12 +13,12 @@
     <color name="divider_dark">#11000000</color>
 
     <!-- Theme colors -->
-    <color name="color_primary">#5130f2</color>
-    <color name="color_primary_dark">#0000be</color>
-    <color name="color_accent">#ff8a80</color>
+    <color name="color_primary">#311B92</color>
+    <color name="color_primary_dark">#140A5B</color>
+    <color name="color_accent">#FF4081</color>
 
     <!-- main color for drawable-v21/my_ripple -->
-    <color name="selector_color">#998f5fff</color>
+    <color name="selector_color">#999C27B0</color>
 
     <!-- Specific colors -->
     <color name="tab_bar_background">@color/color_primary</color>
